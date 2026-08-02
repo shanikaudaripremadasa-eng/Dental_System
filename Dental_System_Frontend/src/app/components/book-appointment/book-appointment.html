@@ -1,0 +1,35 @@
+<div class="booking-container">
+  <h2>Book an Appointment</h2>
+  <p>Please fill out the form below to schedule your dental appointment.</p>
+
+  <form class="appointment-form" (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+      <label for="doctor">Select Doctor:</label>
+      <select id="doctor" name="doctor" [(ngModel)]="appointmentData.doctor" required>
+        <option value="">-- Choose a Dentist --</option>
+        
+        <option *ngFor="let doc of doctorsList" [value]="doc._id">
+          {{ doc.name }} ({{ doc.specialization }})
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Appointment Date:</label>
+      <input type="date" id="date" name="date" [(ngModel)]="appointmentData.date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="time">Preferred Time:</label>
+      <input type="time" id="time" name="time" [(ngModel)]="appointmentData.time" required>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Reason for Visit / Notes:</label>
+      <textarea id="notes" name="notes" rows="4" [(ngModel)]="appointmentData.notes" placeholder="Briefly describe your issue (e.g., Toothache, Cleaning)..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Appointment</button>
+  </form>
+</div>

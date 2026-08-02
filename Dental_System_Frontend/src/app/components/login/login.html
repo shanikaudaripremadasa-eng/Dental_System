@@ -1,0 +1,35 @@
+<div class="login-wrapper">
+  <div class="login-box">
+    <h2>Login to Dental Care</h2>
+    <p>Please enter your details to continue</p>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      
+      <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" formControlName="email" placeholder="Enter your email">
+        <small *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']" class="error-text">
+          Email address is required.
+        </small>
+        <small *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']" class="error-text">
+          Please enter a valid email address.
+        </small>
+      </div>
+      
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter your password">
+        <small *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']" class="error-text">
+          Password is required.
+        </small>
+        <small *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']" class="error-text">
+          Password must be at least 6 characters long.
+        </small>
+      </div>
+      
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+    
+    <p class="bottom-text">Don't have an account? <a href="/register">Register</a></p>
+  </div>
+</div>

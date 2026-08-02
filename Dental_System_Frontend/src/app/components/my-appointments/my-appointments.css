@@ -1,0 +1,74 @@
+.appointments-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  color: #666;
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.appointments-table th, .appointments-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.appointments-table th {
+  background-color: #0f2027;
+  color: white;
+}
+
+.appointments-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-badge.pending { background-color: #ffeaa7; color: #d63031; }
+.status-badge.confirmed { background-color: #55efc4; color: #00b894; }
+.status-badge.cancelled { background-color: #ff7675; color: #d63031; }
+
+.btn-cancel {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b;
+}
+
+.btn-cancel:active {
+  transform: scale(0.95); 
+}

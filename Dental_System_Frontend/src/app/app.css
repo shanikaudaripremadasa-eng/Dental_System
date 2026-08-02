@@ -1,0 +1,99 @@
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.sidebar {
+  width: 280px;
+  background-color: #0d2353; 
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 20px;
+  box-sizing: border-box;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 25px;
+}
+
+.logo i {
+  font-size: 26px;
+  color: #00d2ff; 
+}
+
+.logo h2 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 600;
+}
+
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+  flex-grow: 1;
+}
+
+
+.nav-item {
+  display: flex;
+  align-items: center; 
+  gap: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-item i {
+  font-size: 18px;
+  width: 25px;
+  text-align: center;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+
+.sidebar-footer {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: white;
+}
+
+.user-profile i {
+  font-size: 22px;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #f8f9fa;
+}
+.auth-page-container {
+  display: block !important;
+  background-color: #f4f6f9;
+}

@@ -1,0 +1,108 @@
+<div class="dashboard-container">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-0">Welcome, {{ currentDoctorName || 'Doctor' }}! 👋</h2>
+      <p class="text-muted mb-0">Here is your schedule and patient overview for today.</p>
+    </div>
+    
+    <button (click)="logout()" class="btn btn-danger fw-bold shadow-sm d-flex align-items-center gap-2">
+      🚪 Logout
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card today-appointments">
+      <div class="card-icon">📅</div>
+      <div class="card-info">
+        <h3>Today's Appointments</h3>
+        <p class="count">{{ doctorStats?.todayAppointments ?? 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card treated-patients">
+      <div class="card-icon">🤕</div>
+      <div class="card-info">
+        <h3>Patients Treated</h3>
+        <p class="count">{{ doctorStats?.totalTreated ?? 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card pending-approvals">
+      <div class="card-icon">⏳</div>
+      <div class="card-info">
+        <h3>Pending Approvals</h3>
+        <p class="count">{{ doctorStats?.pendingApprovals ?? 0 }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-main-grid">
+    <div class="left-column" style="flex: 0 0 100%; max-width: 100%;">
+      <div class="section-card table-container">
+        <div class="section-header">
+          <h3>Your Appointments</h3>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Notes / Reason</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+            <tr *ngFor="let app of doctorAppointments">
+              
+              <td>{{ app.patientDisplayName }}</td>
+              <td>{{ app.appointmentDate | date:'dd MMM yyyy' }}</td>
+              <td>{{ app.time || 'N/A' }}</td>
+              <td>{{ app.notes || 'Routine Checkup' }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="app.status?.toLowerCase()">
+                  {{ app.status }}
+                </span>
+              </td>
+              <td>
+            
+                <div class="action-buttons" *ngIf="app.status?.toLowerCase() !== 'completed' && app.status?.toLowerCase() !== 'cancelled'">
+                  <button class="btn-complete" (click)="openNoteModal(app)">Complete</button>
+                  <button class="btn-cancel" (click)="updateStatus(app._id, 'Cancelled')">Cancel</button>
+                </div>
+                <span *ngIf="app.status?.toLowerCase() === 'completed'" style="color: #2ecc71; font-weight: bold;">Done ✓</span>
+                <span *ngIf="app.status?.toLowerCase() === 'cancelled'" style="color: #e74c3c; font-weight: bold;">No Show</span>
+              </td>
+            </tr>
+            
+            <tr *ngIf="!doctorAppointments || doctorAppointments.length === 0">
+              <td colspan="6" style="text-align: center; color: #999; padding: 20px;">No appointments scheduled for you.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="custom-modal" *ngIf="showNoteModal">
+    <div class="modal-content-card">
+      <h3>Add Medical Note / Prescription</h3>
+      <p>Patient: <strong>{{ selectedAppointment?.patientDisplayName }}</strong></p>
+      
+      <div class="form-group">
+        <label for="doctorNotes">Write Treatment Notes / Message:</label>
+        <textarea id="doctorNotes" [(ngModel)]="treatmentNotes" rows="5" placeholder="Enter medicines, advice or checkup results here..."></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-submit-note" (click)="submitTreatmentAndComplete()">Save & Complete</button>
+        <button class="btn-close-modal" (click)="closeNoteModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>

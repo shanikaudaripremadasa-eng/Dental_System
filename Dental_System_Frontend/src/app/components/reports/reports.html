@@ -1,0 +1,26 @@
+<div class="report-container">
+  <h2>Clinic Performance Report</h2>
+
+  <div class="report-header-actions">
+    <div class="summary-card">
+      <strong>Total Appointments:</strong> {{ totalAppointments }}
+    </div>
+    <div class="summary-card">
+      <strong>Busiest Month:</strong> {{ busiestMonth }}
+    </div>
+    
+    <button (click)="downloadPDF()" class="download-btn">
+      Download Report PDF
+    </button>
+  </div>
+
+  
+  <div *ngIf="totalAppointments === 0" style="color: #dc3545; margin: 20px; font-weight: bold;">
+    No appointments found for the year 2026.
+  </div>
+
+  
+  <div class="chart-container" *ngIf="totalAppointments > 0">
+    <canvas id="MyChart"></canvas>
+  </div>
+</div>

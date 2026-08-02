@@ -1,0 +1,138 @@
+<div class="dashboard-container">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-0">Welcome, Admin! 👋</h2>
+      <p class="text-muted mb-0">Here is the system overview and statistics.</p>
+    </div>
+    
+    <button (click)="logout()" class="btn btn-danger fw-bold shadow-sm d-flex align-items-center gap-2">
+      🚪 Logout
+    </button>
+  </div>
+
+  
+  <div class="stats-grid">
+    <div class="stat-card patients">
+      <div class="card-icon">👥</div>
+      <div class="card-info">
+        <h3>Total Patients</h3>
+        <p class="count">{{ stats?.totalPatients || 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card dentists">
+      <div class="card-icon">👨‍⚕️</div>
+      <div class="card-info">
+        <h3>Total Dentists</h3>
+        <p class="count">{{ stats?.totalDoctors || 0 }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card appointments">
+      <div class="card-icon">📅</div>
+      <div class="card-info">
+        <h3>Total Appointments</h3>
+        <p class="count">{{ stats?.totalAppointments || 0 }}</p>
+      </div>
+    </div>
+
+   
+  </div>
+
+  <div class="admin-main-grid">
+    
+    <div class="left-column">
+      
+      
+      <div class="section-card table-container">
+        <div class="section-header">
+          <h3>Recent Appointments</h3>
+          <button class="btn-view-all">View All</button>
+        </div>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Dentist</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of recentAppointments">
+              <td>{{ app.patient?.fullName || app.patient?.name || 'No Name' }}</td>
+
+<td>{{ app.doctor?.name || 'Unknown Doctor' }}</td>
+              <td>{{ app.appointmentDate | date:'dd MMM yyyy' }}</td>
+              <td>{{ app.time || 'N/A' }}</td> 
+              <td>
+                <span class="status-badge" [ngClass]="app.status?.toLowerCase()">
+                  {{ app.status }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="recentAppointments.length === 0">
+              <td colspan="5" style="text-align: center; color: #999;">No recent appointments found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
+      <div class="section-card chart-container">
+        <div class="section-header">
+          <h3>Appointments Overview</h3>
+        </div>
+        <div class="mock-line-chart">
+          <div class="chart-placeholder">📊 Total Active Database Records: {{ stats?.totalAppointments || 0 }}</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right-column">
+      
+      
+      <div class="section-card status-summary-card">
+        <h3>System Overview</h3>
+        <div class="mock-pie-container">
+          <div class="pie-chart-circle" 
+               [style.background]="'conic-gradient(#2ecc71 ' + (stats?.pieChart?.confirmed || 0) + '%, #f1c40f 0 ' + ((stats?.pieChart?.confirmed || 0) + (stats?.pieChart?.pending || 0)) + '%, #e74c3c 0)'">
+          </div>
+          <div class="pie-legends">
+            <p><span class="dot confirmed"></span> Confirmed ({{ stats?.pieChart?.confirmed || 0 }}%)</p>
+            <p><span class="dot pending"></span> Pending ({{ stats?.pieChart?.pending || 0 }}%)</p>
+            <p><span class="dot cancelled"></span> Cancelled ({{ stats?.pieChart?.cancelled || 0 }}%)</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="section-card notifications-container">
+        <div class="section-header">
+          <h3>System Notifications</h3>
+          <button class="btn-view-all">View All</button>
+        </div>
+        <div class="notification-list">
+          <div class="noti-item" *ngFor="let app of recentAppointments | slice:0:2">
+            <span class="noti-icon" [ngClass]="app.status === 'Confirmed' ? 'green' : app.status === 'Cancelled' ? 'red' : 'blue'">📅</span>
+            <div class="noti-body">
+              <p class="noti-text">{{ app.patient?.name || 'A patient' }} booked an appointment ({{ app.status }})</p>
+              <small class="noti-time">{{ app.time || 'Just now' }}</small>
+            </div>
+          </div>
+          <div class="noti-item" *ngIf="recentAppointments.length === 0">
+            <span class="noti-icon blue">🔔</span>
+            <div class="noti-body">
+              <p class="noti-text">No recent appointments to display.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

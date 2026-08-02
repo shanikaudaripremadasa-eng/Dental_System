@@ -1,0 +1,51 @@
+<div class="appointments-container">
+  <h2>My Appointments</h2>
+  <p>Here is the list of all scheduled dental appointments.</p>
+
+  <div *ngIf="!appointments || appointments.length === 0" class="no-data">
+    <p>No appointments found.</p>
+  </div>
+
+  <table *ngIf="appointments && appointments.length > 0" class="appointments-table">
+    <thead>
+      <tr>
+       
+        <th>Doctor Name</th>
+        <th>Date & Time</th>
+        <th>Notes</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let app of appointments">
+        
+        <td>
+          {{ app.doctor?.name || 'Unknown Doctor' }} 
+          <span *ngIf="app.doctor?.specialization" style="font-size: 12px; color: #666;">
+            ({{ app.doctor.specialization }})
+          </span>
+        </td>
+        <td>{{ app.appointmentDate | date:'medium' }}</td>
+        <td>{{ app.notes || '-' }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="(app.status || 'Pending').toLowerCase()">
+            {{ app.status || 'Pending' }}
+          </span>
+        </td>
+       <td>
+          <button *ngIf="app.status?.toLowerCase() === 'pending' || app.status?.toLowerCase() === 'confirmed'" 
+                  class="btn-cancel" 
+                  (click)="cancelAppointment(app._id)">
+            Cancel
+          </button>
+          
+          <span *ngIf="app.status?.toLowerCase() === 'cancelled' || app.status?.toLowerCase() === 'completed'" 
+                style="color: #999; font-size: 13px; font-weight: bold;">
+            No Action
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

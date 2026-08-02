@@ -1,0 +1,78 @@
+<div class="dashboard-container" [ngClass]="{'auth-page-container': isAuthPage()}">
+  
+  <div class="sidebar" *ngIf="!isAuthPage()">
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> 
+      <h2>Dental Care</h2>
+    </div>
+    
+    <div class="nav-links">
+      
+    
+      <ng-container *ngIf="getUserRole() === 'admin'">
+        <a routerLink="/admin-dashboard" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </a>
+        <a routerLink="/add-doctor" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-user-doctor"></i> Add Doctor
+        </a>
+       
+        <a routerLink="/reports" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-file-invoice"></i> Reports
+        </a>
+      </ng-container>
+
+    
+      <ng-container *ngIf="getUserRole() === 'doctor'">
+        <a routerLink="/doctor-dashboard" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </a>
+        <a routerLink="/my-appointments" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-calendar-check"></i> Appointments
+        </a>
+        
+        <a routerLink="/reports" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-file-invoice"></i> Reports
+        </a>
+      </ng-container>
+
+     
+      <ng-container *ngIf="getUserRole() === 'patient'">
+        <a routerLink="/patient-dashboard" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </a>
+        <a routerLink="/book-appointment" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-calendar-plus"></i> Book Appointment
+        </a>
+        <a routerLink="/my-appointments" routerLinkActive="active" class="nav-item">
+          <i class="fa-solid fa-calendar-check"></i> My Appointments
+        </a>
+       
+      </ng-container>
+
+      
+   <a routerLink="/notifications" routerLinkActive="active" class="nav-item" style="position: relative;">
+  <i class="fa-solid fa-bell"></i> 
+  Notifications
+  
+  <span class="badge" *ngIf="(unreadCount$ | async) as count" 
+        [style.display]="count > 0 ? 'block' : 'none'"
+        style="background-color: red; color: white; padding: 2px 6px; border-radius: 50%; font-size: 10px; position: absolute; top: 10px; right: 20px;">
+    {{ count }}
+  </span>
+</a>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <i class="fa-solid fa-circle-user"></i>
+        <span>{{ getUserName() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
